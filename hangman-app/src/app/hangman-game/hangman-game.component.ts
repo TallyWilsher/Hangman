@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-hangman-game',
@@ -7,36 +6,40 @@ import { stringify } from 'querystring';
   styleUrls: ['./hangman-game.component.css'],
 })
 export class HangmanGameComponent implements OnInit {
-  public randomWord: string = "";
+  public randomWord: string = '';
   public guessedLetters: Array<String> = [];
   public isGuessCorrect: boolean = false;
   public hasPlayerWon: boolean = false;
 
+  public namesArray = ['naruto', 'sasuke', 'sakura'];
+
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  public getRandomNumber(max: number) {
+    return Math.floor(Math.random() * max);
   }
 
   public startNewGame(): void {
-    
-  };
+    this.generateRandomWord();
+  }
   public generateRandomWord(): string {
-    return "";
-  };
+    // expected output: 0, 1 or 2
+    let randomNumber = this.getRandomNumber(3);
+
+    this.randomWord = this.namesArray[randomNumber];
+    return this.randomWord;
+  }
   public checkGuess(letterGuess: string): boolean {
     return true || false;
-  };
+  }
   public showGuessedLetter(letterGuess: string): string {
-    return "";
-  };
+    return '';
+  }
   public decreaseLife(lives: number): number {
     return 0;
-  };
-  public playerWins(): void {
-
-  };
-  public playerLoses(): void {
-
-  };
+  }
+  public playerWins(): void {}
+  public playerLoses(): void {}
 }
