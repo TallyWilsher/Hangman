@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -6,17 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player.component.css'],
 })
 export class PlayerComponent implements OnInit {
-  public letterGuess: string = '';
-  public lives: number = 6;
+  
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  guessLetter(keyUp: Event): string {
-    return '';
-  }
-  setPlayerLives(): void {
-    this.lives = 6;
-  }
+  
 }

@@ -2,3 +2,14 @@
 <h1>hangman-game</h1>
 <button (click)="startNewGame()">click to start a new game</button>
 <div>{{ randomWord }}</div>
+
+<p>Guessed Letters:</p>
+<p *ngFor="let l of guessedLetters">{{ l }}</p>
+
+<p>You guessed the letter:</p>
+<p>{{ letterGuess }}</p>
+
+<p>Remaining Lives</p>
+<p>{{ lives }}</p>
+
+<p *ngIf="hasPlayerWon">{{ gameStatus }}</p>
