@@ -1,13 +1,21 @@
 <p>hangman-game works!</p>
 <h1>hangman-game</h1>
 <button (click)="startNewGame()">click to start a new game</button>
-<div>{{ randomWord }}</div>
+<div>{{ answer }}</div>
+
+<div>{{ wordStatus }}</div>
 
 <p>Guessed Letters:</p>
 <p *ngFor="let l of guessedLetters">{{ l }}</p>
 
+<p>Wrong Guessed Letters:</p>
+<p *ngFor="let l of guessedLettersWord">{{ l }}</p>
+
 <p>You guessed the letter:</p>
 <p>{{ letterGuess }}</p>
+
+<p>Underscores:</p>
+<p>{{ wordStatus }}</p>
 
 <p>Remaining Lives</p>
 <p>{{ lives }}</p>
