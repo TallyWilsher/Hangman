@@ -12,6 +12,7 @@ export class HangmanGameComponent implements OnInit, OnChanges {
   public gameStatus: string = '';
   public guessedLetters: Array<String> = [];
   public guessedLettersWord: Array<String> = [];
+  public wrongGuessedLetters: Array<String> = [];
   public isGuessCorrect: boolean = false;
   public isPlayerWinner: boolean = false;
   public lives: number = 0;
@@ -32,10 +33,10 @@ export class HangmanGameComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.hasLetterBeenGuessed(this.letterGuess);
+    // this.hasLetterBeenGuessed(this.letterGuess);
     this.checkGuess(this.letterGuess);
-    this.showGuessedLetter();
-    this.hasPlayerWon();
+    // this.showGuessedLetter();
+    this.hasPlayerWon(this.wordStatus);
   }
 
   public getRandomNumber(max: number) {
@@ -52,21 +53,19 @@ export class HangmanGameComponent implements OnInit, OnChanges {
     let randomNumber = this.getRandomNumber(3);
     this.answer = this.namesArray[randomNumber];
 
-    // this.randomWordUnderscores = ' _ '.repeat(this.answer.length);
-    // console.log(this.randomWordUnderscores);
-
     return this.answer;
   }
 
   public guessedWord(): string {
-    let wordStatus = this.answer
+    this.wordStatus = this.answer
       .split('')
       .map((letter) =>
         this.guessedLettersWord.indexOf(letter) >= 0 ? letter : ' _ '
       )
-      .join('');
-    console.log(wordStatus);
-    return wordStatus;
+      .join('')
+      .toString();
+    console.log(this.wordStatus);
+    return this.wordStatus;
   }
 
   setPlayerLives(): void {
@@ -80,55 +79,32 @@ export class HangmanGameComponent implements OnInit, OnChanges {
 
     if (this.answer.indexOf(letterGuess) >= 0) {
       this.guessedWord();
-      this.hasPlayerWon();
+      this.hasPlayerWon(this.wordStatus);
     } else if (this.answer.indexOf(letterGuess) === -1) {
+      this.wrongGuessedLetters.push(letterGuess);
       this.decreaseLife();
       this.hasPlayerLost();
     }
-
-    // let word = [...this.answer];
-
-    // this.hasLetterBeenGuessed(letterGuess);
-    // word.forEach((wordLetter) => {
-    //   console.log(wordLetter);
-
-    //   if (letterGuess === wordLetter) {
-    //     console.log('great guess');
-    //     this.isGuessCorrect = true;
-    //     //show guessed letter
-    //   }
-    //   return;
-    // });
-
-    // if (this.isGuessCorrect === true) {
-    //   return;
-    // }
-    // if (this.isGuessCorrect === false) {
-    //   this.guessedLetters.push(letterGuess);
-    //   this.decreaseLife();
-    //   return;
-    // }
   }
 
-  public hasLetterBeenGuessed(letterGuess: string): boolean {
-    //got to cover the first guess being empty
-    if (this.guessedLetters.includes(letterGuess)) {
-      console.log(`already guessed ${letterGuess}`);
-      this.isGuessCorrect = true;
-      return true;
-    }
-    this.isGuessCorrect = false;
-    return false;
-  }
-  public showGuessedLetter(): void {
-    this.guessedLetters;
-  }
+  // public hasLetterBeenGuessed(letterGuess: string): boolean {
+  //   if (this.guessedLetters.includes(letterGuess)) {
+  //     console.log(`already guessed ${letterGuess}`);
+  //     this.isGuessCorrect = true;
+  //     return true;
+  //   }
+  //   this.isGuessCorrect = false;
+  //   return false;
+  // }
+  // public showGuessedLetter(): void {
+  //   this.guessedLetters;
+  // }
   public decreaseLife(): void {
     this.lives--;
   }
 
-  public hasPlayerWon(): boolean {
-    if (this.wordStatus === this.guessedLettersWord.toString()) {
+  public hasPlayerWon(wordStatus: string): boolean {
+    if (wordStatus === this.answer.toString()) {
       this.gameStatus = 'You Win!!!';
       this.isPlayerWinner = true;
     }
